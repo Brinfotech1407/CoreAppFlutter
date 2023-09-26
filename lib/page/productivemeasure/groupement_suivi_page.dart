@@ -119,6 +119,7 @@ class _GroupementSuiviPageState extends State<GroupementSuiviPage> {
     } else if (stepIndex.value == 2) {
       return "Step 3";
     }
+
     return 'Actualiser';
   }
 
