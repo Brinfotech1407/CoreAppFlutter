@@ -20,105 +20,191 @@ class _GroupementSuiviPageState extends State<GroupementSuiviPage> {
           title: TitleAppBarWhite(title: 'Suivi Groupement CGC RANDA'),
           leading: ButtonBackWhite(context)),
       body: Container(
-        padding: const EdgeInsets.only(left: 30, right: 30, top: 20),
-        child: Column(
-          children: [
-            ValueListenableBuilder<int>(
-              builder: (BuildContext context, int value, Widget child) {
-                return Column(
+        padding: const EdgeInsets.only(left: 30, right: 30),
+        child: ValueListenableBuilder(
+          valueListenable: stepIndex,
+          builder: (context, value, child) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    if (value == 1) ...<Widget>[
-                      Column(children: <Widget>[
-                        InkWell(
-                          child: InputWidget(
-                              hint: 'Solde Cumule Epargne', bottom: 15),
-                          onTap: () {},
+                    Flexible(
+                      child: Card(
+                        color: Colors.white,
+                        margin: const EdgeInsets.all(4),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
                         ),
-                        InkWell(
-                          child: InputWidget(
-                              hint: 'Solde Actuel Epargne', bottom: 15),
-                          onTap: () {},
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        elevation: 1,
+                        //margin: EdgeInsets.only(top: 8),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8.0,16,8.0,16),
+                          child: Column(children: <Widget>[
+                            formHeaderView('Step 1'),
+                            InkWell(
+                              child: InputWidget(
+                                  hint: 'Solde Cumule Epargne', bottom: 15),
+                              onTap: () {},
+                            ),
+                            InkWell(
+                              child: InputWidget(
+                                  hint: 'Solde Actuel Epargne', bottom: 15),
+                              onTap: () {},
+                            ),
+                            InkWell(
+                              child: InputWidget(
+                                  hint: 'Solde Cumule Epargne', bottom: 15),
+                              onTap: () {},
+                            ),
+                            InkWell(
+                              child: InputWidget(
+                                  hint: 'Solde Actuel Epargne', bottom: 15),
+                              onTap: () {},
+                            ),
+                            InkWell(
+                              child: InputWidget(
+                                  hint: 'Nombre d\'epargnes', bottom: 15),
+                              onTap: () {},
+                            ),
+                            InkWell(
+                              child: InputWidget(
+                                  hint: '# Prets/Credits', bottom: 15),
+                              onTap: () {},
+                            ),
+                          ]),
                         ),
-                        InkWell(
-                          child: InputWidget(
-                              hint: 'Solde Cumule Epargne', bottom: 15),
-                          onTap: () {},
-                        ),
-                        InkWell(
-                          child: InputWidget(
-                              hint: 'Solde Actuel Epargne', bottom: 15),
-                          onTap: () {},
-                        ),
-                        InkWell(
-                          child: InputWidget(
-                              hint: 'Nombre d\'epargnes', bottom: 15),
-                          onTap: () {},
-                        ),
-                        InkWell(
-                          child:
-                              InputWidget(hint: '# Prets/Credits', bottom: 15),
-                          onTap: () {},
-                        ),
-                      ]),
-                    ] else if (value == 2) ...<Widget>[
-                      Column(children: <Widget>[
-                        InkWell(
-                          child:
-                              InputWidget(hint: '# Membres Actifs', bottom: 15),
-                          onTap: () {},
-                        ),
-                        InkWell(
-                          child:
-                              InputWidget(hint: '# Membres Exclus', bottom: 15),
-                          onTap: () {},
-                        ),
-                        InkWell(
-                          child: InputWidget(
-                              hint: '# Subventions recues', bottom: 15),
-                          onTap: () {},
-                        ),
-                        InkWell(
-                          child: InputWidget(
-                              hint: 'Total Montant Subention', bottom: 15),
-                          onTap: () {},
-                        ),
-                      ]),
-                    ] else if (value == 3) ...<Widget>[
-                      InkWell(
-                        child: InputWidget(
-                            hint: '# Activites Productives creees', bottom: 15),
-                        onTap: () {},
                       ),
-                    ],
-                    Container(
-                      child: button(
-                          width: 50,
-                          text: getTextOfButton(),
-                          onPressed: () {
-                            if (stepIndex.value != 3) {
-                              stepIndex.value = stepIndex.value + 1;
-                            }
+                    ),
+                    const SizedBox(width: 10),
+                    Flexible(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Card(
+                            margin: const EdgeInsets.all(4),
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            elevation: 1,
 
-                            //onPressHandle();
-                          }),
-                    )
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(children: <Widget>[
+                                formHeaderView('Step 2'),
+                                InkWell(
+                                  child: InputWidget(
+                                      hint: '# Membres Actifs', bottom: 15),
+                                  onTap: () {},
+                                ),
+                                InkWell(
+                                  child: InputWidget(
+                                      hint: '# Membres Exclus', bottom: 15),
+                                  onTap: () {},
+                                ),
+                                InkWell(
+                                  child: InputWidget(
+                                      hint: '# Subventions recues',
+                                      bottom: 15),
+                                  onTap: () {},
+                                ),
+                                InkWell(
+                                  child: InputWidget(
+                                      hint: 'Total Montant Subention',
+                                      bottom: 15),
+                                  onTap: () {},
+                                ),
+                              ]),
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Card(
+                            margin: const EdgeInsets.all(4),
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            elevation: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  formHeaderView('Step 3'),
+                                  InkWell(
+                                    child: InputWidget(
+                                        hint:
+                                        '# Activites Productives creees',
+                                        bottom: 15),
+                                    onTap: () {},
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
-                );
-              },
-              valueListenable: stepIndex,
-            ),
-          ],
+                ),
+                Container(
+                  child: button(
+                      width: 50,
+                      text: getTextOfButton(),
+                      onPressed: () {
+                        if (stepIndex.value != 3) {
+                          stepIndex.value = stepIndex.value + 1;
+                        }
+
+                        //onPressHandle();
+                      }),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
   }
 
+  Padding formHeaderView(String title) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: Container(
+              color: Colors.blueGrey,
+              margin: const EdgeInsets.only(left: 12, right: 12),
+              height: 1,
+            ),
+          ),
+          Text(title,
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700)),
+          Expanded(
+            child: Container(
+              color: Colors.blueGrey,
+              margin: const EdgeInsets.only(left: 12, right: 12),
+              height: 1,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   String getTextOfButton() {
-    if (stepIndex.value == 1) {
+  /*  if (stepIndex.value == 1) {
       return "Step 2";
     } else if (stepIndex.value == 2) {
       return "Step 3";
-    }
+    }*/
 
     return 'Actualiser';
   }
@@ -146,3 +232,8 @@ class _GroupementSuiviPageState extends State<GroupementSuiviPage> {
         ),
       );
 }
+
+
+/**
+ *
+ */
