@@ -137,6 +137,7 @@ class _GroupementSuiviPageState extends State<GroupementSuiviPage> {
                   text: TextSpan(children: [
                 TextSpan(
                     text: t.toString(),
+
                     style: TextStyle(color: R.color.black, fontSize: 24))
               ])),
             )
