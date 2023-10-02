@@ -269,11 +269,9 @@ class DatabaseHelper {
   }
 
   // Grant Loading
-  Future<int> insertGrants(
-      GrantModel _parsedJson) async {
+  Future<int> insertGrants(GrantModel _parsedJson) async {
     Database db = await instance.database;
-    var queryGrant =
-    await db.insert("espmis_grants", _parsedJson.toMap());
+    var queryGrant = await db.insert("espmis_grants", _parsedJson.toMap());
 
     return queryGrant;
   }
@@ -283,13 +281,14 @@ class DatabaseHelper {
       ProductiveActivityModel _parsedJson) async {
     Database db = await instance.database;
     var queryProductiveActivity =
-    await db.insert("espmis_productives_activities", _parsedJson.toMap());
+        await db.insert("espmis_productives_activities", _parsedJson.toMap());
 
     return queryProductiveActivity;
   }
 
   //Productive Activity - retrieve by id
-  Future<List<ProductiveActivityModel>> fetchProductivesActivities(int id) async {
+  Future<List<ProductiveActivityModel>> fetchProductivesActivities(
+      int id) async {
     Database db = await instance.database;
     List<Map> results = await db.query("espmis_productives_activities",
         columns: ProductiveActivityModel.columns,
@@ -298,13 +297,14 @@ class DatabaseHelper {
 
     return results.isNotEmpty
         ? List.generate(results.length, (i) {
-      return ProductiveActivityModel.fromMap(results[i]);
-    })
+            return ProductiveActivityModel.fromMap(results[i]);
+          })
         : null;
   }
 
   //Productive Activity - retrieve by id
-  Future<List<ProductiveActivityModel>> fetchProductivesActivitiesForBeneficiary(int id) async {
+  Future<List<ProductiveActivityModel>>
+      fetchProductivesActivitiesForBeneficiary(int id) async {
     Database db = await instance.database;
     List<Map> results = await db.query("espmis_productives_activities",
         columns: ProductiveActivityModel.columns,
@@ -313,8 +313,8 @@ class DatabaseHelper {
 
     return results.isNotEmpty
         ? List.generate(results.length, (i) {
-      return ProductiveActivityModel.fromMap(results[i]);
-    })
+            return ProductiveActivityModel.fromMap(results[i]);
+          })
         : null;
   }
 
@@ -328,8 +328,8 @@ class DatabaseHelper {
 
     return results.isNotEmpty
         ? List.generate(results.length, (i) {
-      return GrantModel.fromMap(results[i]);
-    })
+            return GrantModel.fromMap(results[i]);
+          })
         : null;
   }
 
@@ -343,52 +343,52 @@ class DatabaseHelper {
 
     return results.isNotEmpty
         ? List.generate(results.length, (i) {
-      return GrantModel.fromMap(results[i]);
-    })
+            return GrantModel.fromMap(results[i]);
+          })
         : null;
   }
+
   // Groupements and Activities Loading
   Future<int> insertGroupementsAndActivities(
       GroupementModel _parsedJson) async {
     Database db = await instance.database;
     var queryGroupement =
-    await db.insert("espmis_groupements", _parsedJson.toMap());
+        await db.insert("espmis_groupements", _parsedJson.toMap());
 
     if (_parsedJson.activitiesG != null) {
       List<GroupementActivityModel> t = _parsedJson.activitiesG;
       for (var i = 0; i < t.length; i++) {
         if (t[i] != null) {
-          var queryGroupementActivities =
-          await db.insert("espmis_groupements_activities", t[i].toMap(),conflictAlgorithm: ConflictAlgorithm.replace);
+          var queryGroupementActivities = await db.insert(
+              "espmis_groupements_activities", t[i].toMap(),
+              conflictAlgorithm: ConflictAlgorithm.replace);
         }
       }
     }
-            if (_parsedJson.members != null) {
-              List<GroupementBeneficiaryModel> m = _parsedJson.members;
-              for (var i = 0; i < m.length; i++) {
-                if (m[i] != null) {
-                  var queryMembers =
-                  await db.insert("espmis_groupements_members", m[i].toMap(),conflictAlgorithm: ConflictAlgorithm.replace);
-                }
-              }
-            }
+    if (_parsedJson.members != null) {
+      List<GroupementBeneficiaryModel> m = _parsedJson.members;
+      for (var i = 0; i < m.length; i++) {
+        if (m[i] != null) {
+          var queryMembers = await db.insert(
+              "espmis_groupements_members", m[i].toMap(),
+              conflictAlgorithm: ConflictAlgorithm.replace);
+        }
+      }
+    }
 
-
-
-          if (_parsedJson.activitiesM != null) {
-            List<MemberActivityModel> t = _parsedJson.activitiesM;
-            for (var i = 0; i < t.length; i++) {
-              if (t[i] != null) {
-                var queryMemberActivities =
-                await db.insert("espmis_members_activities", t[i].toMap(),conflictAlgorithm: ConflictAlgorithm.replace);
-              }
-            }
-          }
-
+    if (_parsedJson.activitiesM != null) {
+      List<MemberActivityModel> t = _parsedJson.activitiesM;
+      for (var i = 0; i < t.length; i++) {
+        if (t[i] != null) {
+          var queryMemberActivities = await db.insert(
+              "espmis_members_activities", t[i].toMap(),
+              conflictAlgorithm: ConflictAlgorithm.replace);
+        }
+      }
+    }
 
     return queryGroupement;
   }
-
 
   //Groupement - insert
   Future<int> insertGroupement(GroupementModel g) async {
@@ -407,14 +407,12 @@ class DatabaseHelper {
   Future<List<GroupementModel>> fetchGroupement(int id) async {
     Database db = await instance.database;
     List<Map> results = await db.query("espmis_groupements",
-        columns: GroupementModel.columns,
-        where: "id = ?",
-        whereArgs: [id]);
+        columns: GroupementModel.columns, where: "id = ?", whereArgs: [id]);
 
     return results.isNotEmpty
         ? List.generate(results.length, (i) {
-      return GroupementModel.fromMap(results[i]);
-    })
+            return GroupementModel.fromMap(results[i]);
+          })
         : null;
   }
 
@@ -425,14 +423,14 @@ class DatabaseHelper {
     String query =
         "SELECT name, role, adhesion_at, terminaison_at, groupement_beneficiary_flag " +
             "FROM espmis_groupements_members g " +
-                "JOIN espmis_beneficiaries b ON b.id = g.beneficiary_id " +
-
-                "WHERE g.groupement_id = " + groupement_id.toString() + "";
+            "JOIN espmis_beneficiaries b ON b.id = g.beneficiary_id " +
+            "WHERE g.groupement_id = " +
+            groupement_id.toString() +
+            "";
 
     List<Map<String, dynamic>> results = await db.rawQuery(query);
 
     return results;
-
   }
 
   //Members - retrieve all
@@ -444,17 +442,18 @@ class DatabaseHelper {
             "FROM espmis_groupements_members m " +
             "JOIN espmis_beneficiaries b ON b.id = m.beneficiary_id " +
             "JOIN espmis_groupements g ON g.id = m.groupement_id " +
-
-            "WHERE m.beneficiary_id = " + beneficiary_id.toString() + "";
+            "WHERE m.beneficiary_id = " +
+            beneficiary_id.toString() +
+            "";
 
     List<Map<String, dynamic>> results = await db.rawQuery(query);
 
     return results;
-
   }
 
   //Grievance - retrieve all
-  Future<List<GroupementBeneficiaryModel>> fetchListMembers(int groupement_id) async {
+  Future<List<GroupementBeneficiaryModel>> fetchListMembers(
+      int groupement_id) async {
     Database db = await instance.database;
     List<Map> results = await db.query("espmis_groupements_members",
         columns: GroupementBeneficiaryModel.columns,
@@ -463,12 +462,10 @@ class DatabaseHelper {
 
     return results.isNotEmpty
         ? List.generate(results.length, (i) {
-      return GroupementBeneficiaryModel.fromMap(results[i]);
-    })
+            return GroupementBeneficiaryModel.fromMap(results[i]);
+          })
         : null;
   }
-
-
 
   //Groupement - retrieve by name
   Future<List<GroupementModel>> fetchGroupementByName(String name) async {
@@ -494,8 +491,6 @@ class DatabaseHelper {
     return data;
   }
 
-
-
   //Groupement - insert
   Future<int> insertGroupementActivity(GroupementModel g) async {
     Database db = await database;
@@ -508,9 +503,6 @@ class DatabaseHelper {
     return await db.update("espmis_groupements_activities", g.toMap(),
         where: '${g.id}=?', whereArgs: [g.id]);
   }
-
-
-
 
   // Helper methods
   //Grievance - insert
@@ -686,7 +678,6 @@ class DatabaseHelper {
     List<Map<String, dynamic>> results = await db.rawQuery(query);
 
     return results;
-
   }
 
   Future<List<Map<String, dynamic>>> fetchGrievancesToBeSync() async {
@@ -823,6 +814,31 @@ class DatabaseHelper {
     });
   }
 
+  Future<int> updateGroupmentId({
+    int groupmentID,
+    int soldeCumulatedSaving,
+    int solde_actual_saving,
+    int total_saving,
+    int total_new_members_actif,
+    int total_excluded_members,
+    int total_members,
+    int loan_cumulated_actual,
+    int total_new_loans,
+    int total_grants_received,
+    int total_grant_amount,
+    int total_productives_activities_created,
+    int groupement_activity_flag,
+  }) async {
+    Database db = await instance.database;
+
+    int i=await db.transaction((txn) async {
+      return await txn.rawUpdate(
+          "UPDATE espmis_groupements_activities set solde_cumulated_saving = '$soldeCumulatedSaving',solde_actual_saving = '$solde_actual_saving',total_saving = '$total_saving',total_new_members_actif = '$total_new_members_actif',total_excluded_members = '$total_excluded_members',total_members = '$total_members',loan_cumulated_actual = '$loan_cumulated_actual',total_new_loans = '$total_new_loans',total_grants_received = '$total_grants_received',total_grant_amount = '$total_grant_amount',total_productives_activities_created = '$total_productives_activities_created',groupement_activity_flag = '$groupement_activity_flag' WHERE groupement_id = $groupmentID ");
+    });
+
+    return i;
+  }
+
   // Deletes the row specified by the id. The number of affected rows is
   // returned. This should be 1 as long as the row exists.
   Future<int> delete(String table, int id) async {
@@ -863,4 +879,3 @@ class DatabaseHelper {
     db.close();
   }
 }
-

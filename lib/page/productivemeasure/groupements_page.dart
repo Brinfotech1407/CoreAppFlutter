@@ -1,15 +1,15 @@
 // #4e6ce3
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mspmis/contanst/contanst.dart';
 import 'package:mspmis/generated/i18n.dart';
+import 'package:mspmis/model/productive_measure_model.dart';
 import 'package:mspmis/page/productivemeasure/groupement_grant_page.dart';
 import 'package:mspmis/page/productivemeasure/groupement_member_page.dart';
 import 'package:mspmis/page/productivemeasure/groupement_productive_activity_page.dart';
+import 'package:mspmis/page/productivemeasure/groupement_suivi_page.dart';
 import 'package:mspmis/utils/utils.dart';
-import 'package:mspmis/contanst/contanst.dart';
-import 'package:mspmis/model/productive_measure_model.dart';
-import 'package:badges/badges.dart' as badges;
-import 'package:mspmis/page/productivemeasure/groupement_information_page.dart';
 
 class GroupementsPage extends StatefulWidget {
   GroupementsPage({Key key, this.groupement}) : super(key: key);
@@ -31,11 +31,8 @@ class _GroupementsPageState extends State<GroupementsPage> {
   }
 
   void _init() async {
-
-
     setState(() {
-
-        _isChecked = true;
+      _isChecked = true;
     });
   }
 
@@ -49,7 +46,7 @@ class _GroupementsPageState extends State<GroupementsPage> {
               TitleAppBarWhite(title: S.of(context).title_groupement_profile),
           leading: ButtonBackWhite(context)),
       body: Container(
-        padding: EdgeInsets.only(top: 0),
+        padding: const EdgeInsets.only(top: 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -59,19 +56,17 @@ class _GroupementsPageState extends State<GroupementsPage> {
               child: InkWell(
                 child: Container(
                     child: badges.Badge(
-                      badgeColor: Colors.green
-                      ,
-                      shape: badges.BadgeShape.square,
-                      // borderRadius: 20,
-                      toAnimate: false,
-                      badgeContent: Text(
-                          widget.groupement.type_groupement_id,
-                          style: TextStyle(color: Colors.white)),
-                    )),
+                  badgeColor: Colors.green,
+                  shape: badges.BadgeShape.square,
+                  // borderRadius: 20,
+                  toAnimate: false,
+                  badgeContent: Text(widget.groupement.type_groupement_id,
+                      style: const TextStyle(color: Colors.white)),
+                )),
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 15, bottom:25),
+              margin: const EdgeInsets.only(top: 15, bottom: 25),
               child: Text(
                 widget.groupement.label,
                 style: TextStyle(
@@ -79,11 +74,7 @@ class _GroupementsPageState extends State<GroupementsPage> {
                     fontWeight: FontWeight.w600,
                     color: R.color.black),
               ),
-
-
             ),
-
-
             Container(
               height: 150,
               width: wB,
@@ -95,18 +86,16 @@ class _GroupementsPageState extends State<GroupementsPage> {
                       Expanded(
                         child: Row(
                           children: <Widget>[
-                            Expanded(child: _ItemGoal('# Members',0)),
-                            Expanded(child: _ItemGoal('Solde Epargne',0))
-
+                            Expanded(child: _ItemGoal('# Members', 0)),
+                            Expanded(child: _ItemGoal('Solde Epargne', 0))
                           ],
                         ),
                       ),
                       Expanded(
                         child: Row(
                           children: <Widget>[
-                            Expanded(child: _ItemGoal('# Beneficiaires',0)),
+                            Expanded(child: _ItemGoal('# Beneficiaires', 0)),
                             Expanded(child: _ItemGoal('# Subventions', 0))
-
                           ],
                         ),
                       )
@@ -129,12 +118,11 @@ class _GroupementsPageState extends State<GroupementsPage> {
                       endIndent: 20,
                     ),
                   )
-
                 ],
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 30, bottom: 45),
+              margin: const EdgeInsets.only(top: 30, bottom: 45),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -145,7 +133,7 @@ class _GroupementsPageState extends State<GroupementsPage> {
                         style: TextStyle(color: R.color.white, fontSize: 12),
                       ),
                       backgroundColor: R.color.blue,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.account_balance_wallet,
                         color: Colors.white,
                       ),
@@ -156,10 +144,15 @@ class _GroupementsPageState extends State<GroupementsPage> {
                                 builder: (BuildContext context) =>
                                     SimpleDialogExample(),
                               )
-                            :
-                        Navigator.of(context)
-                            .pushNamed(RouterName.ADD_SUIVI_GROUPEMENT);
-
+                            : Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => GroupementSuiviPage(
+                                      groupement: widget.groupement),
+                                ),
+                              );
+                        /*Navigator.of(context)
+                            .pushNamed(RouterName.ADD_SUIVI_GROUPEMENT);*/
                       }),
                   FloatingActionButton.extended(
                       heroTag: '5',
@@ -168,7 +161,7 @@ class _GroupementsPageState extends State<GroupementsPage> {
                         style: TextStyle(color: R.color.white, fontSize: 12),
                       ),
                       backgroundColor: R.color.blue,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.monetization_on,
                         color: Colors.white,
                       ),
@@ -177,8 +170,7 @@ class _GroupementsPageState extends State<GroupementsPage> {
                             ? Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      null,
+                                  builder: (context) => null,
                                 ),
                               )
                             : showDialog(
@@ -194,16 +186,14 @@ class _GroupementsPageState extends State<GroupementsPage> {
                         style: TextStyle(color: R.color.white, fontSize: 12),
                       ),
                       backgroundColor: R.color.blue,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.add_comment,
                         color: Colors.white,
                       ),
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-
-                          ),
+                          MaterialPageRoute(),
                         );
                       }),
                 ],
@@ -214,8 +204,8 @@ class _GroupementsPageState extends State<GroupementsPage> {
               child: Column(
                 children: <Widget>[
                   _ButtonDetail(
-                      image: SvgPicture.asset(
-                          R.image.ic_tabbar_groupement_blue),
+                      image:
+                          SvgPicture.asset(R.image.ic_tabbar_groupement_blue),
                       text: S.of(context).lbl_suivi_groupement,
                       onTap: () {
                         Navigator.push(
@@ -240,23 +230,23 @@ class _GroupementsPageState extends State<GroupementsPage> {
                         );
                       }),
                   _ButtonDetail(
-                      image:
-                          SvgPicture.asset(R.image.ic_tabbar_activity_blue),
+                      image: SvgPicture.asset(R.image.ic_tabbar_activity_blue),
                       text: 'Suivi ' + S.of(context).lbl_activity_ip,
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => GroupementProductiveActivityPage(
-                                groupement: widget.groupement),
+                            builder: (context) =>
+                                GroupementProductiveActivityPage(
+                                    groupement: widget.groupement),
                           ),
                         );
                       }),
-
                   _ButtonDetail(
                       image:
-                      SvgPicture.asset(R.image.ic_tabbar_addgrievance_blue),
-                      text: 'Suivi ' + S.of(context).lbl_beneficiary_grievance_transaction,
+                          SvgPicture.asset(R.image.ic_tabbar_addgrievance_blue),
+                      text: 'Suivi ' +
+                          S.of(context).lbl_beneficiary_grievance_transaction,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -278,13 +268,13 @@ class _GroupementsPageState extends State<GroupementsPage> {
         onTap: onTap,
         child: Container(
           decoration: ShadowDecorationWhite(),
-          margin: EdgeInsets.only(left: 20, right: 20, bottom: 32),
-          padding: EdgeInsets.only(left: 25, right: 25, top: 16, bottom: 16),
+          margin: const EdgeInsets.only(left: 20, right: 20, bottom: 32),
+          padding: const EdgeInsets.only(left: 25, right: 25, top: 16, bottom: 16),
           child: Row(
             children: <Widget>[
               image,
               Container(
-                margin: EdgeInsets.only(left: 25, right: 25),
+                margin: const EdgeInsets.only(left: 25, right: 25),
                 width: 1,
                 height: 30,
                 color: R.color.dark_white,
@@ -303,25 +293,24 @@ class _GroupementsPageState extends State<GroupementsPage> {
       );
 
   Widget _ItemGoal(String msg, int pos) => Center(
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          msg,
-          style: TextStyle(color: R.color.grey, fontSize: 18),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: RichText(
-              text: TextSpan(children: [
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              msg,
+              style: TextStyle(color: R.color.grey, fontSize: 18),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: RichText(
+                  text: TextSpan(children: [
                 TextSpan(
                     text: pos.toString(),
                     style: TextStyle(color: R.color.black, fontSize: 24))
-
               ])),
-        )
-      ],
-    ),
-  );
+            )
+          ],
+        ),
+      );
 }
